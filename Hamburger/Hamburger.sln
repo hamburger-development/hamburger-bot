@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29721.120
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hamburger.ConsoleApp", "Hamburger.ConsoleApp\Hamburger.ConsoleApp.csproj", "{BE1E2CA5-7B6A-44BF-8DF2-82FF512861A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hamburger.Core", "Hamburger.Core\Hamburger.Core.csproj", "{04259831-597D-406A-B3D2-B52E1CBF4639}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hamburger.Discord", "Hamburger.Discord\Hamburger.Discord.csproj", "{0F8E3C05-5553-45F1-A8D5-3B52B2E23840}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hamburger.InversionOfControl", "Hamburger.InversionOfControl\Hamburger.InversionOfControl.csproj", "{A720D054-037D-4783-9605-720C1D113BA1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hamburger.xUnit.Tests", "Hamburger.xUnit.Tests\Hamburger.xUnit.Tests.csproj", "{C7522B3B-135F-4447-94C9-23C4330D5795}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hamburger.Logger", "Hamburger.Logger\Hamburger.Logger.csproj", "{0B586BB7-71A3-493C-BD27-650A2A03CF04}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BE1E2CA5-7B6A-44BF-8DF2-82FF512861A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE1E2CA5-7B6A-44BF-8DF2-82FF512861A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE1E2CA5-7B6A-44BF-8DF2-82FF512861A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE1E2CA5-7B6A-44BF-8DF2-82FF512861A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04259831-597D-406A-B3D2-B52E1CBF4639}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04259831-597D-406A-B3D2-B52E1CBF4639}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04259831-597D-406A-B3D2-B52E1CBF4639}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04259831-597D-406A-B3D2-B52E1CBF4639}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F8E3C05-5553-45F1-A8D5-3B52B2E23840}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F8E3C05-5553-45F1-A8D5-3B52B2E23840}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F8E3C05-5553-45F1-A8D5-3B52B2E23840}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F8E3C05-5553-45F1-A8D5-3B52B2E23840}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A720D054-037D-4783-9605-720C1D113BA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A720D054-037D-4783-9605-720C1D113BA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A720D054-037D-4783-9605-720C1D113BA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A720D054-037D-4783-9605-720C1D113BA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7522B3B-135F-4447-94C9-23C4330D5795}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7522B3B-135F-4447-94C9-23C4330D5795}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7522B3B-135F-4447-94C9-23C4330D5795}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7522B3B-135F-4447-94C9-23C4330D5795}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B586BB7-71A3-493C-BD27-650A2A03CF04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B586BB7-71A3-493C-BD27-650A2A03CF04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B586BB7-71A3-493C-BD27-650A2A03CF04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B586BB7-71A3-493C-BD27-650A2A03CF04}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F1C0E36B-E757-49A4-8FB4-70794B5EE26E}
+	EndGlobalSection
+EndGlobal
