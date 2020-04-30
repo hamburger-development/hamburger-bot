@@ -8,4 +8,9 @@
     <PackageReference Include="Discord.Net" Version="2.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Hamburger.Core\Hamburger.Core.csproj" />
+    <ProjectReference Include="..\Hamburger.Logger\Hamburger.Logger.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Threading.Tasks;
+using Hamburger.Core;
+using Hamburger.Discord;
 using Hamburger.Logger;
 using Ninject;
 
@@ -6,12 +9,12 @@ namespace Hamburger.ConsoleApp
 {
     class Program
     {
-        static void Main(string[] args)
-        {
-            ILogger logger = InversionOfControl.Kernel.Get<ILogger>();
+        private static HamburgerBot _hamburger;
 
-            logger.Log("This is an error", LogSeverity.SEVERITY_ERROR);
-            logger.Log("This should be an alert", LogSeverity.SEVERITY_ALERT);
+        private static async Task Main(string[] args)
+        {
+            _hamburger = new HamburgerBot(InversionOfControl.Kernel.Get<IDiscordConnection>());
+            await _hamburger.StartAsync();
         }
     }
 }
