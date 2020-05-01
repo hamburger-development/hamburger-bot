@@ -9,6 +9,8 @@ using Discord.Commands;
 using Discord.WebSocket;
 using Hamburger.Core;
 using Hamburger.Logger;
+using Ninject;
+using LogSeverity = Hamburger.Logger.LogSeverity;
 
 namespace Hamburger.Discord
 {
@@ -16,15 +18,15 @@ namespace Hamburger.Discord
     {
         private readonly IDiscord _client;
         private readonly CommandService _commandService;
-        private ILogger _logger;
-        //private readonly IServiceProvider _services;
+        private readonly ILogger _logger;
+        private readonly IKernel _services;
 
-        public CommandHandler(IDiscord client, ILogger logger /*, IServiceProvider services*/)
+        public CommandHandler(IDiscord client, ILogger logger, IKernel services)
         {
             _client = client;
             _commandService = new CommandService();
             _logger = logger;
-            //_services = services;
+            _services = services;
         }
 
         public async Task InstallCommandsAsync()
@@ -32,7 +34,7 @@ namespace Hamburger.Discord
             _client.Client.MessageReceived += HandleCommandAsync;
 
             await _commandService.AddModulesAsync(assembly: Assembly.GetExecutingAssembly(),
-                services: null);
+                services: _services);
         }
 
         private async Task HandleCommandAsync(SocketMessage arg)
@@ -48,10 +50,14 @@ namespace Hamburger.Discord
                 return;
 
             var context = new SocketCommandContext(_client.Client, message);
+
+            _logger.Log($"Executed command: {context.Message.ToString().Split(' ')[0].Substring(1)}, in server [{context.Guild.Name}]({context.Channel.Id}) and channel [{context.Channel.Name}]({context.Channel.Id.ToString()}) by user [{context.User.Username}#{context.User.Discriminator}]({context.User.Id.ToString()})",
+                LogSeverity.SEVERITY_MESSAGE);
+
             var result = await _commandService.ExecuteAsync(
                 context: context,
                 argPos: argPos,
-                services: null
+                services: _services
                 );
 
             if (!result.IsSuccess)
