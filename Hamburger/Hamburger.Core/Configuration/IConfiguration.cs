@@ -9,5 +9,7 @@ namespace Hamburger.Core.Configuration
     public interface IConfiguration
     {
         string DiscordBotToken { get; set; }
+
+        void LoadConfiguration(string path);
     }
 }

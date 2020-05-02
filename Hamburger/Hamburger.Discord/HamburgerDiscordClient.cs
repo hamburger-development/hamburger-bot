@@ -14,7 +14,6 @@ namespace Hamburger.Discord
         public HamburgerDiscordClient(IConfiguration config)
         {
             _config = config;
-            _config.DiscordBotToken = "NjE0NzkyMTYwNDUzMDY2NzUy.XqggNg.EmALnDr_H2h35qqj9cFNgA7IaPU";
         }
 
         public DiscordSocketClient Client { get; private set; }
