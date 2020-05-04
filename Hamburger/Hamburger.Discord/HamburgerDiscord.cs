@@ -19,14 +19,16 @@ namespace Hamburger.Discord
         private readonly DiscordLogger _discordLogger;
         private readonly ILogger _logger;
         private readonly CommandHandler _commandHandler;
+        private readonly JoinHandler _joinHandler;
 
 
-        public HamburgerDiscord(IDiscord hamburgerDiscord, DiscordLogger dislogger, ILogger logger, CommandHandler commandHandler)
+        public HamburgerDiscord(IDiscord hamburgerDiscord, DiscordLogger dislogger, ILogger logger, CommandHandler commandHandler, JoinHandler joinHandler)
         {
             _discord = hamburgerDiscord;
             _discordLogger = dislogger;
             _logger = logger;
             _commandHandler = commandHandler;
+            _joinHandler = joinHandler;
         }
         public async Task RunAsync(CancellationToken tokenSource)
         {
@@ -36,6 +38,7 @@ namespace Hamburger.Discord
                 _discord.Client.Log += _discordLogger.Log;
                 _discord.Client.Ready += OnClientReady;
                 await _commandHandler.InstallCommandsAsync();
+                _joinHandler.InstallJoinHandler();
                 await _discord.Client.StartAsync();
                 await Task.Delay(-1, tokenSource);
             }

@@ -12,6 +12,7 @@
     <ProjectReference Include="..\Hamburger.Core\Hamburger.Core.csproj" />
     <ProjectReference Include="..\Hamburger.Discord\Hamburger.Discord.csproj" />
     <ProjectReference Include="..\Hamburger.Logger\Hamburger.Logger.csproj" />
+    <ProjectReference Include="..\Hamburger.MongoStorage\Hamburger.MongoStorage.csproj" />
   </ItemGroup>
 
 </Project>

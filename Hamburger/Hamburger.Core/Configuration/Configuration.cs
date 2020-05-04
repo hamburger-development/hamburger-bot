@@ -15,12 +15,13 @@ namespace Hamburger.Core.Configuration
             LoadConfiguration("config.json");
         }
         public string DiscordBotToken { get; set; }
+        public string MongoConnectionString { get; set; }
 
         public void LoadConfiguration(string path)
         {
-            if (path is null) return;
             var json = JsonConvert.DeserializeObject<ConfigObject>(File.ReadAllText(path));
             DiscordBotToken = json.DiscordToken;
+            MongoConnectionString = json.MongoConnectionString;
         }
     }
 
@@ -28,5 +29,8 @@ namespace Hamburger.Core.Configuration
     {
         [JsonProperty("discord_token")]
         public string DiscordToken { get; set; }
+        [JsonProperty("mongo_connection_string")]
+        public string MongoConnectionString { get; set; }
+
     }
 }

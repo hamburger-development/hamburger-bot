@@ -1,9 +1,12 @@
 ﻿using System;
 using Hamburger.Core;
 using Hamburger.Core.Configuration;
+using Hamburger.Core.PersistentStorage;
 using Hamburger.Discord;
 using Hamburger.Discord.Logging;
 using Hamburger.Logger;
+using Hamburger.MongoStorage;
+using MongoDB.Driver;
 using Ninject.Modules;
 
 namespace Hamburger.InversionOfControl
@@ -17,6 +20,8 @@ namespace Hamburger.InversionOfControl
             Bind<IDiscordConnection>().To<HamburgerDiscord>().InSingletonScope();
             Bind<DiscordLogger>().ToSelf().InSingletonScope();
             Bind<CommandHandler>().ToSelf().InSingletonScope();
+            Bind<IDbStorage>().To<MongoDbStorage>().InSingletonScope();
+            Bind<MongoClient>().ToSelf().InSingletonScope();
         }
     }
 }
