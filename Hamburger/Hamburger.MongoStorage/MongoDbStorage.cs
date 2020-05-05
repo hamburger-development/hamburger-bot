@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Hamburger.Core.PersistentStorage;
 using Hamburger.Core.Configuration;
 using Hamburger.Core.Models;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Hamburger.MongoStorage
@@ -90,6 +91,13 @@ namespace Hamburger.MongoStorage
 
             if (isNull) return false;
             return true;
+        }
+
+        public async Task<bool> CollectionExistsAsync(string path)
+        {
+            var filter = new BsonDocument("name", path);
+            var collections = await _db.ListCollectionsAsync(new ListCollectionsOptions { Filter = filter });
+            return await collections.AnyAsync();
         }
     }
 }

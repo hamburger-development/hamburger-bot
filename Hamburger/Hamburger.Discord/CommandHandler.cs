@@ -8,6 +8,8 @@ using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 using Hamburger.Core;
+using Hamburger.Core.Models;
+using Hamburger.Core.PersistentStorage;
 using Hamburger.Logger;
 using Ninject;
 using LogSeverity = Hamburger.Logger.LogSeverity;
@@ -20,13 +22,15 @@ namespace Hamburger.Discord
         private readonly CommandService _commandService;
         private readonly ILogger _logger;
         private readonly IKernel _services;
+        private readonly IDbStorage _dbStorage;
 
-        public CommandHandler(IDiscord client, ILogger logger, IKernel services)
+        public CommandHandler(IDiscord client, ILogger logger, IKernel services, IDbStorage dbStorage)
         {
             _client = client;
             _commandService = new CommandService();
             _logger = logger;
             _services = services;
+            _dbStorage = dbStorage;
         }
 
         public async Task InstallCommandsAsync()
@@ -42,17 +46,36 @@ namespace Hamburger.Discord
             var message = arg as SocketUserMessage;
             if (message is null) return;
 
+            var channel = arg.Channel as SocketGuildChannel;
+            var guildid = channel.Guild.Id;
+
+            var currentGuild =
+                await _dbStorage.FindOne<HamburgerGuildConfiguration>(x => x.DiscordGuildId == guildid, guildid.ToString());
+
             int argPos = 0;
 
-            if (!(message.HasCharPrefix('!', ref argPos) || 
-                  message.HasMentionPrefix(_client.Client.CurrentUser, ref argPos)) ||
-                message.Author.IsBot)
+            if (!(message.HasStringPrefix(currentGuild.CommandPrefix, ref argPos) ||
+
+                  message.Content == _client.Client.CurrentUser.Mention ||
+                  message.Author.IsBot))
                 return;
 
             var context = new SocketCommandContext(_client.Client, message);
 
-            _logger.Log($"Executed command: {context.Message.ToString().Split(' ')[0].Substring(1)}, in server [{context.Guild.Name}]({context.Channel.Id}) and channel [{context.Channel.Name}]({context.Channel.Id.ToString()}) by user [{context.User.Username}#{context.User.Discriminator}]({context.User.Id.ToString()})",
-                LogSeverity.SEVERITY_MESSAGE);
+            if (message.Content == _client.Client.CurrentUser.Mention)
+            {
+                _logger.Log("Got here", LogSeverity.SEVERITY_MESSAGE);
+                var embed = new EmbedBuilder()
+                    .WithTitle("Hello!")
+                    .WithDescription($"My prefix is `{currentGuild.CommandPrefix}`")
+                    .Build();
+
+                await context.Channel.SendMessageAsync("", false, embed);
+                return;
+            }
+
+            _logger.Log($"Executed command: {context.Message.ToString().Split(' ')[0].Substring(currentGuild.CommandPrefix.Length - 1)}, in server [{context.Guild.Name}]({context.Channel.Id}) and channel [{context.Channel.Name}]({context.Channel.Id.ToString()}) by user [{context.User.Username}#{context.User.Discriminator}]({context.User.Id.ToString()})",
+              LogSeverity.SEVERITY_MESSAGE);
 
             var result = await _commandService.ExecuteAsync(
                 context: context,

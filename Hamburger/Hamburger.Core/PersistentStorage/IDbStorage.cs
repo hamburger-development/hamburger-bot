@@ -19,5 +19,6 @@ namespace Hamburger.Core.PersistentStorage
         Task<T> FindOne<T>(Expression<Func<T, bool>> predicate, string path);
         Task<IEnumerable<T>> FindMany<T>(Expression<Func<T, bool>> predicate, string path);
         bool Exists<T>(Expression<Func<T, bool>> predicate, string path);
+        Task<bool> CollectionExistsAsync(string path);
     } 
 }

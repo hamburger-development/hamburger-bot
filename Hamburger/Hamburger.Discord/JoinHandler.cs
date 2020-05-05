@@ -38,7 +38,14 @@ namespace Hamburger.Discord
                 CommandPrefix = "!"
             };
 
+            if (await _db.CollectionExistsAsync(arg.Id.ToString()))
+            {
+                _logger.Log("Guild already exists, doing nothing", LogSeverity.SEVERITY_ALERT);
+                return;
+            }
+            _logger.Log($"Creating new collection for server: {arg.Name}", LogSeverity.SEVERITY_ALERT);
             await _db.StoreOne(guildConfig, arg.Id.ToString());
+
         }
 
         private async Task HandleLeaveGuildAsync(SocketGuild arg)
