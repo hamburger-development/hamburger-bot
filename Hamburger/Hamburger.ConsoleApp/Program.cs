@@ -1,10 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
-using Hamburger.Core;
+﻿using Hamburger.Core;
 using Hamburger.Core.PersistentStorage;
-using Hamburger.Discord;
-using Hamburger.Logger;
 using Ninject;
+using System.Threading.Tasks;
 
 namespace Hamburger.ConsoleApp
 {

@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Discord;
+﻿using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
-using Hamburger.Core;
 using Hamburger.Core.Models;
 using Hamburger.Core.PersistentStorage;
 using Hamburger.Logger;
 using Ninject;
+using System.Reflection;
+using System.Threading.Tasks;
 using LogSeverity = Hamburger.Logger.LogSeverity;
 
 namespace Hamburger.Discord
@@ -43,6 +38,9 @@ namespace Hamburger.Discord
 
         private async Task HandleCommandAsync(SocketMessage arg)
         {
+            DiscordShardedClient client = new DiscordShardedClient();
+            client.
+
             var message = arg as SocketUserMessage;
             if (message is null) return;
 
@@ -55,7 +53,7 @@ namespace Hamburger.Discord
             int argPos = 0;
 
             if (!(message.HasStringPrefix(currentGuild.CommandPrefix, ref argPos) ||
-                  message.HasMentionPrefix(_client.Client.CurrentUser, ref argPos) || 
+                  message.HasMentionPrefix(_client.Client.CurrentUser, ref argPos) ||
                   message.Content == _client.Client.CurrentUser.Mention) ||
                 message.Author.IsBot)
                 return;

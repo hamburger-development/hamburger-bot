@@ -1,11 +1,9 @@
-﻿using System;
-using Hamburger.Core;
+﻿using Hamburger.Core;
 using Hamburger.Core.Configuration;
 using Hamburger.Core.PersistentStorage;
 using Hamburger.Core.Services;
 using Hamburger.Discord;
 using Hamburger.Discord.Logging;
-using Hamburger.Logger;
 using Hamburger.MongoStorage;
 using MongoDB.Driver;
 using Ninject.Modules;

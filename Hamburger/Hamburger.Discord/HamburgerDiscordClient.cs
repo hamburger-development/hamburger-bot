@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Discord;
+﻿using Discord;
 using Discord.WebSocket;
 using Hamburger.Core.Configuration;
+using System;
+using System.Threading.Tasks;
 
 namespace Hamburger.Discord
 {

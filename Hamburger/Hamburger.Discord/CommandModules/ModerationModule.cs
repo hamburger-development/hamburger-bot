@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Discord;
+﻿using Discord;
 using Discord.Commands;
+using System;
+using System.Threading.Tasks;
 
 namespace Hamburger.Discord.CommandModules
 {
@@ -12,7 +9,7 @@ namespace Hamburger.Discord.CommandModules
     {
         public ModerationModule()
         {
-            
+
         }
         [Command("userinfo")]
         public async Task UserInfoAsync(IUser user)

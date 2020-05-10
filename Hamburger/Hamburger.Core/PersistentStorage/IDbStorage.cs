@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Threading.Tasks;
-using Hamburger.Core.Models;
 
 namespace Hamburger.Core.PersistentStorage
 {
@@ -21,5 +17,5 @@ namespace Hamburger.Core.PersistentStorage
         bool Exists<T>(Expression<Func<T, bool>> predicate, string path);
         Task<bool> CollectionExistsAsync(string path);
         Task DeleteCollectionAsync(string path);
-    } 
+    }
 }

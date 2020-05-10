@@ -1,4 +1,3 @@
-using System;
 using Xunit;
 
 namespace Hamburger.xUnit.Tests
@@ -8,7 +7,7 @@ namespace Hamburger.xUnit.Tests
         [Fact]
         public void Test1()
         {
-            
+
         }
     }
 }

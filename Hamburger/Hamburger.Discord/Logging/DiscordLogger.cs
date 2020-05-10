@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Discord;
+﻿using Discord;
 using Hamburger.Logger;
+using System.Threading.Tasks;
 using LogSeverity = Discord.LogSeverity;
 
 namespace Hamburger.Discord.Logging
