@@ -55,33 +55,34 @@ namespace Hamburger.Discord
             int argPos = 0;
 
             if (!(message.HasStringPrefix(currentGuild.CommandPrefix, ref argPos) ||
-
-                  message.Content == _client.Client.CurrentUser.Mention ||
-                  message.Author.IsBot))
+                  message.HasMentionPrefix(_client.Client.CurrentUser, ref argPos) || 
+                  message.Content == _client.Client.CurrentUser.Mention) ||
+                message.Author.IsBot)
                 return;
 
             var context = new SocketCommandContext(_client.Client, message);
 
             if (message.Content == _client.Client.CurrentUser.Mention)
             {
-                _logger.Log("Got here", LogSeverity.SEVERITY_MESSAGE);
                 var embed = new EmbedBuilder()
                     .WithTitle("Hello!")
-                    .WithDescription($"My prefix is `{currentGuild.CommandPrefix}`")
+                    .WithDescription($"My prefix is `{currentGuild.CommandPrefix}`, you can also mention me with any command \n(Ex: `@Hamburger prefix ?`)")
                     .Build();
 
                 await context.Channel.SendMessageAsync("", false, embed);
                 return;
             }
 
-            _logger.Log($"Executed command: {context.Message.ToString().Split(' ')[0].Substring(currentGuild.CommandPrefix.Length - 1)}, in server [{context.Guild.Name}]({context.Channel.Id}) and channel [{context.Channel.Name}]({context.Channel.Id.ToString()}) by user [{context.User.Username}#{context.User.Discriminator}]({context.User.Id.ToString()})",
-              LogSeverity.SEVERITY_MESSAGE);
+            _logger.Log($"Executed command in server [{context.Guild.Name}]({context.Channel.Id}) and channel [{context.Channel.Name}]({context.Channel.Id.ToString()}) by user [{context.User.Username}#{context.User.Discriminator}]({context.User.Id.ToString()})",
+                LogSeverity.SEVERITY_MESSAGE);
 
             var result = await _commandService.ExecuteAsync(
                 context: context,
                 argPos: argPos,
                 services: _services
-                );
+            );
+
+            if (result is null) return;
 
             if (!result.IsSuccess)
             {

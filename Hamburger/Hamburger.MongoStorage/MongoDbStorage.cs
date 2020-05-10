@@ -99,5 +99,10 @@ namespace Hamburger.MongoStorage
             var collections = await _db.ListCollectionsAsync(new ListCollectionsOptions { Filter = filter });
             return await collections.AnyAsync();
         }
+
+        public async Task DeleteCollectionAsync(string path)
+        {
+            await _db.DropCollectionAsync(path);
+        }
     }
 }

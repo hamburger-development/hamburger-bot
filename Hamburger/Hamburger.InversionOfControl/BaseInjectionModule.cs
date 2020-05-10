@@ -2,6 +2,7 @@
 using Hamburger.Core;
 using Hamburger.Core.Configuration;
 using Hamburger.Core.PersistentStorage;
+using Hamburger.Core.Services;
 using Hamburger.Discord;
 using Hamburger.Discord.Logging;
 using Hamburger.Logger;
@@ -22,6 +23,7 @@ namespace Hamburger.InversionOfControl
             Bind<CommandHandler>().ToSelf().InSingletonScope();
             Bind<IDbStorage>().To<MongoDbStorage>().InSingletonScope();
             Bind<MongoClient>().ToSelf().InSingletonScope();
+            Bind<UserService>().ToSelf().InSingletonScope();
         }
     }
 }
