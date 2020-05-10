@@ -14,7 +14,7 @@ namespace Hamburger.Discord
             _config = config;
         }
 
-        public DiscordSocketClient Client { get; private set; }
+        public DiscordShardedClient Client { get; private set; }
         public async Task InitializeAsync()
         {
             if (string.IsNullOrWhiteSpace(_config.DiscordBotToken))
@@ -22,7 +22,7 @@ namespace Hamburger.Discord
                 throw new ArgumentNullException($"{nameof(_config.DiscordBotToken)} is null");
             }
 
-            Client = new DiscordSocketClient(new DiscordSocketConfig
+            Client = new DiscordShardedClient(new DiscordSocketConfig
             {
                 LogLevel = LogSeverity.Info
             });

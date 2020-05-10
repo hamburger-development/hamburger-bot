@@ -5,6 +5,7 @@ using Hamburger.Logger;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Discord.WebSocket;
 using LogSeverity = Hamburger.Logger.LogSeverity;
 
 namespace Hamburger.Discord
@@ -32,7 +33,7 @@ namespace Hamburger.Discord
             {
                 await _discord.InitializeAsync();
                 _discord.Client.Log += _discordLogger.Log;
-                _discord.Client.Ready += OnClientReady;
+                _discord.Client.ShardReady += OnClientReady;
                 await _commandHandler.InstallCommandsAsync();
                 _joinHandler.InstallJoinHandler();
                 await _discord.Client.StartAsync();
@@ -51,9 +52,9 @@ namespace Hamburger.Discord
             await Task.Delay(-1);
         }
 
-        private Task OnClientReady()
+        private Task OnClientReady(DiscordSocketClient client)
         {
-            _logger.Log("Client is ready", LogSeverity.SEVERITY_MESSAGE);
+            _logger.Log($"Client `{client.ShardId}` is ready", LogSeverity.SEVERITY_MESSAGE);
             _discord.Client.SetGameAsync("you", null, ActivityType.Watching);
 
             return Task.CompletedTask;

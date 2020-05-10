@@ -5,7 +5,7 @@ namespace Hamburger.Discord
 {
     public interface IDiscord
     {
-        DiscordSocketClient Client { get; }
+        DiscordShardedClient Client { get; }
         Task InitializeAsync();
         void DisposeOfClient();
     }

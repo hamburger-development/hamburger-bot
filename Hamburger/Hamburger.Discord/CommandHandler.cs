@@ -38,9 +38,6 @@ namespace Hamburger.Discord
 
         private async Task HandleCommandAsync(SocketMessage arg)
         {
-            DiscordShardedClient client = new DiscordShardedClient();
-            client.
-
             var message = arg as SocketUserMessage;
             if (message is null) return;
 
@@ -58,7 +55,7 @@ namespace Hamburger.Discord
                 message.Author.IsBot)
                 return;
 
-            var context = new SocketCommandContext(_client.Client, message);
+            var context = new ShardedCommandContext(_client.Client, message);
 
             if (message.Content == _client.Client.CurrentUser.Mention)
             {
