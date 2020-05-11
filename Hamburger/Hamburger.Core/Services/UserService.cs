@@ -1,36 +1,44 @@
-﻿using Hamburger.Core.Models;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Hamburger.Core.Models;
 using Hamburger.Core.PersistentStorage;
 using System.Threading.Tasks;
+using Hamburger.Core.Permissions;
+using Hamburger.Core.Providers;
+using Hamburger.Logger;
 
 namespace Hamburger.Core.Services
 {
     public class UserService
     {
         private readonly IDbStorage _db;
+        private readonly ILogger _logger;
+        private readonly HamburgerUserProvider _userProvider;
 
-        public UserService(IDbStorage db)
+        public UserService(IDbStorage db, ILogger logger ,HamburgerUserProvider userProvider)
         {
             _db = db;
+            _logger = logger;
+            _userProvider = userProvider;
         }
 
-        public async Task<HamburgerUser> GetUserAsync(HamburgerGuildConfiguration config, ulong id)
+        public async Task AddPermissionAsync(ulong userId, ulong guildId, PermissionNode node)
         {
-            if (_db.Exists<HamburgerUser>(x => x.DiscordUserId == id, config.DiscordGuildId.ToString()))
+            var user = await _userProvider.GetOrCreateUserAsync(userId, guildId);
+            user.Permissions.Add(new Permission
             {
-                var user = await _db.FindOne<HamburgerUser>(x => x.DiscordUserId == id,
-                    config.DiscordGuildId.ToString());
+                Category = PermissionCategory.GENERAL,
+                Node = node
+            });
 
-                return user;
-            }
-
-            return null;
+            _logger.Log($"Added permission for {user.DiscordUserId}", LogSeverity.SEVERITY_ALERT);
+            await _db.UpdateOne(user,x => x.DiscordUserId == userId , guildId.ToString());
         }
 
-        public async Task CreateUserAsync(HamburgerUser user, HamburgerGuildConfiguration config)
+        public async Task<List<Permission>> ListPermissionsAsync(ulong userId, ulong guildId)
         {
-            await _db.StoreOne(user, config.DiscordGuildId.ToString());
+            var user = await _userProvider.GetOrCreateUserAsync(userId, guildId);
+            return user.Permissions;
         }
-
-        //public async Task AddPermissionAsync(ulong userId, ulong guildId)
     }
 }

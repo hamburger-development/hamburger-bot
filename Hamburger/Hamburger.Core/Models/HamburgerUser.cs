@@ -8,6 +8,6 @@ namespace Hamburger.Core.Models
     {
         [BsonId]
         public ulong DiscordUserId { get; set; }
-        public IEnumerable<Permission> Permissions { get; set; }
+        public List<Permission> Permissions { get; set; }
     }
 }

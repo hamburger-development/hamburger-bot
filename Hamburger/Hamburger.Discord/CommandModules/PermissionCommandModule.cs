@@ -11,7 +11,7 @@ using Ninject.Activation;
 namespace Hamburger.Discord.CommandModules
 {
     [Group("permission")]
-    class PermissionCommandModule : ModuleBase<ShardedCommandContext>
+    public class PermissionCommandModule : ModuleBase<ShardedCommandContext>
     {
         private readonly UserService _userService;
 
@@ -21,10 +21,27 @@ namespace Hamburger.Discord.CommandModules
         }
 
         [Command("add")]
-        public async Task AddPermissionAsync(IUser user, PermissionNode node)
+        public async Task CmdAddPermissionAsync(IUser user, PermissionNode node)
         {
-
+           await  _userService.AddPermissionAsync(user.Id, Context.Guild.Id, node);
         }
 
+        [Command("list")]
+        public async Task CmdListPermissionsAsync(IUser user = null)
+        {
+            if (user is null)
+            {
+                var permissions = await _userService.ListPermissionsAsync(Context.User.Id, Context.Guild.Id);
+                var embed = new EmbedBuilder()
+                    .WithTitle($"Permissions for {Context.User.Username}");
+
+                foreach (var permission in permissions)
+                {
+                    embed.AddField(Enum.GetName(typeof(PermissionNode), permission.Node), "true");
+                }
+
+                await Context.Channel.SendMessageAsync("", false, embed.Build());
+            }
+        }
     }
 }
