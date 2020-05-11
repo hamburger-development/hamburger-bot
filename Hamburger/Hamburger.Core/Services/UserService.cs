@@ -30,5 +30,7 @@ namespace Hamburger.Core.Services
         {
             await _db.StoreOne(user, config.DiscordGuildId.ToString());
         }
+
+        //public async Task AddPermissionAsync(ulong userId, ulong guildId)
     }
 }

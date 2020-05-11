@@ -8,7 +8,7 @@ using Discord.WebSocket;
 
 namespace Hamburger.Discord.CommandModules
 {
-    public class GeneralCommandModule : ModuleBase<SocketCommandContext>
+    public class GeneralCommandModule : ModuleBase<ShardedCommandContext>
     {
         private readonly IDbStorage _dbStorage;
         private readonly IDiscord _client;

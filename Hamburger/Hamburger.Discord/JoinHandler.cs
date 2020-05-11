@@ -6,6 +6,7 @@ using Hamburger.Logger;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Hamburger.Core.Providers;
 
 namespace Hamburger.Discord
 {
@@ -14,20 +15,27 @@ namespace Hamburger.Discord
         private readonly IDiscord _discord;
         private readonly ILogger _logger;
         private readonly IDbStorage _db;
-        private readonly UserService _userService;
+        private readonly HamburgerUserProvider _userProvider;
 
-        public JoinHandler(IDiscord discord, ILogger logger, IDbStorage db, UserService userService)
+        public JoinHandler(IDiscord discord, ILogger logger, IDbStorage db, HamburgerUserProvider userProvider)
         {
             _discord = discord;
             _logger = logger;
             _db = db;
-            _userService = userService;
+            _userProvider = userProvider;
         }
 
         public void InstallJoinHandler()
         {
             _discord.Client.JoinedGuild += HandleNewGuildAsync;
+            _discord.Client.UserJoined += HandleNewUserJoinAsync;
             _discord.Client.LeftGuild += HandleLeaveGuildAsync;
+        }
+
+        private async Task HandleNewUserJoinAsync(SocketGuildUser arg)
+        {
+            var user = await _userProvider.GetOrCreateUserAsync(arg.Id, arg.Guild.Id);
+            _logger.Log($"Created new user {user.DiscordUserId} on join", LogSeverity.SEVERITY_ALERT);
         }
 
         private async Task HandleNewGuildAsync(SocketGuild arg)
@@ -51,12 +59,7 @@ namespace Hamburger.Discord
 
             foreach (var user in arg.Users)
             {
-                HamburgerUser hamburgerUser = new HamburgerUser
-                {
-                    DiscordUserId = user.Id,
-                };
-
-                await _userService.CreateUserAsync(hamburgerUser, guildConfig);
+                var hamburgerUser = await _userProvider.GetOrCreateUserAsync(user.Id, arg.Id);
                 _logger.Log($"Created user {hamburgerUser.DiscordUserId}", LogSeverity.SEVERITY_MESSAGE);
             }
         }
