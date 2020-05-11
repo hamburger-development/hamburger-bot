@@ -1,12 +1,11 @@
 ﻿using Discord.WebSocket;
 using Hamburger.Core.Models;
 using Hamburger.Core.PersistentStorage;
-using Hamburger.Core.Services;
+using Hamburger.Core.Providers;
 using Hamburger.Logger;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Hamburger.Core.Providers;
 
 namespace Hamburger.Discord
 {

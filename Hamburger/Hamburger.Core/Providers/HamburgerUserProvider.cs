@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hamburger.Core.Models;
+﻿using Hamburger.Core.Models;
 using Hamburger.Core.Permissions;
 using Hamburger.Core.PersistentStorage;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Hamburger.Core.Providers
 {

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Discord;
+﻿using Discord;
 using Discord.Commands;
 using Hamburger.Core.Permissions;
 using Hamburger.Core.Services;
-using Ninject.Activation;
+using System;
+using System.Threading.Tasks;
 
 namespace Hamburger.Discord.CommandModules
 {
@@ -23,7 +20,7 @@ namespace Hamburger.Discord.CommandModules
         [Command("add")]
         public async Task CmdAddPermissionAsync(IUser user, PermissionNode node)
         {
-           await  _userService.AddPermissionAsync(user.Id, Context.Guild.Id, node);
+            await _userService.AddPermissionAsync(user.Id, Context.Guild.Id, node);
         }
 
         [Command("list")]

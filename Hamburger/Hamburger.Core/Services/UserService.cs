@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Hamburger.Core.Models;
+﻿using Hamburger.Core.Permissions;
 using Hamburger.Core.PersistentStorage;
-using System.Threading.Tasks;
-using Hamburger.Core.Permissions;
 using Hamburger.Core.Providers;
 using Hamburger.Logger;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Hamburger.Core.Services
 {
@@ -15,7 +13,7 @@ namespace Hamburger.Core.Services
         private readonly ILogger _logger;
         private readonly HamburgerUserProvider _userProvider;
 
-        public UserService(IDbStorage db, ILogger logger ,HamburgerUserProvider userProvider)
+        public UserService(IDbStorage db, ILogger logger, HamburgerUserProvider userProvider)
         {
             _db = db;
             _logger = logger;
@@ -32,7 +30,7 @@ namespace Hamburger.Core.Services
             });
 
             _logger.Log($"Added permission for {user.DiscordUserId}", LogSeverity.SEVERITY_ALERT);
-            await _db.UpdateOne(user,x => x.DiscordUserId == userId , guildId.ToString());
+            await _db.UpdateOne(user, x => x.DiscordUserId == userId, guildId.ToString());
         }
 
         public async Task<List<Permission>> ListPermissionsAsync(ulong userId, ulong guildId)

@@ -1,11 +1,11 @@
 ﻿using Discord;
+using Discord.WebSocket;
 using Hamburger.Core;
 using Hamburger.Discord.Logging;
 using Hamburger.Logger;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Discord.WebSocket;
 using LogSeverity = Hamburger.Logger.LogSeverity;
 
 namespace Hamburger.Discord

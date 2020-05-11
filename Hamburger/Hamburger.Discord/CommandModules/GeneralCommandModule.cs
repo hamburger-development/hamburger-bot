@@ -1,10 +1,10 @@
-﻿using System.Linq;
-using Discord;
+﻿using Discord;
 using Discord.Commands;
+using Discord.WebSocket;
 using Hamburger.Core.Models;
 using Hamburger.Core.PersistentStorage;
+using System.Linq;
 using System.Threading.Tasks;
-using Discord.WebSocket;
 
 namespace Hamburger.Discord.CommandModules
 {
