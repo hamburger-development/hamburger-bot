@@ -24,6 +24,7 @@ namespace Hamburger.InversionOfControl
             Bind<MongoClient>().ToSelf().InSingletonScope();
             Bind<UserService>().ToSelf().InSingletonScope();
             Bind<HamburgerUserProvider>().ToSelf().InSingletonScope();
+            Bind<PermissionService>().ToSelf().InSingletonScope();
         }
     }
 }

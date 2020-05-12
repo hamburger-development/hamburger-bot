@@ -18,9 +18,38 @@ namespace Hamburger.Discord.CommandModules
         }
 
         [Command("add")]
-        public async Task CmdAddPermissionAsync(IUser user, PermissionNode node)
+        public async Task CmdAddPermissionAsync(IUser user, string node)
         {
-            await _userService.AddPermissionAsync(user.Id, Context.Guild.Id, node);
+            try
+            {
+                if (await _userService.AddPermissionAsync(user.Id, Context.Guild.Id, node))
+                {
+                    var embed = new EmbedBuilder()
+                        .WithTitle("Permission added!")
+                        .WithDescription($"Added permission `{node}` to {user.Mention}")
+                        .Build();
+
+                    await Context.Channel.SendMessageAsync("", false, embed);
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                var embed = new EmbedBuilder()
+                    .WithTitle("User already has permission")
+                    .WithDescription($"Please try adding another permission")
+                    .Build();
+
+                await Context.Channel.SendMessageAsync("", false, embed);
+                return;
+            }
+
+            var embedError = new EmbedBuilder()
+                .WithTitle("Permission doesn't exist")
+                .WithDescription("Please try adding another permission.")
+                .Build();
+
+            await Context.Channel.SendMessageAsync("", false, embedError);
         }
 
         [Command("list")]
@@ -34,7 +63,7 @@ namespace Hamburger.Discord.CommandModules
 
                 foreach (var permission in permissions)
                 {
-                    embed.AddField(Enum.GetName(typeof(PermissionNode), permission.Node), "true");
+                    embed.AddField(permission.Category + "." + permission.Node, "true");
                 }
 
                 await Context.Channel.SendMessageAsync("", false, embed.Build());
